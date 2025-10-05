@@ -2,24 +2,36 @@ from langchain_ollama import OllamaLLM
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
-# Initialize Ollama with a specific model (make sure it's pulled first)
+"""
+0-Shot Prompting Examples
+
+0-shot prompting involves asking the model to perform a task without providing 
+any examples or demonstrations. The model relies solely on its pre-trained 
+knowledge and the task description to generate responses.
+
+Key characteristics:
+- No examples provided in the prompt
+- Clear task instructions
+- Direct question/instruction format
+"""
+
 llm = OllamaLLM(model="llama3.1:8b")
 
-# 1. Prompt for Movie Review Classification
+# 1. Prompt for Movie Review Classification (0-shot)
 movie_review_prompt = """Classify the following movie review as positive or negative: {question}"""
 
-# 2. Prompt for Climate Change Paragraph Summarization
+# 2. Prompt for Climate Change Paragraph Summarization (0-shot)
 climate_change_prompt = """Summarize the following paragraph on climate change: {question}"""
 
-# 3. Prompt for English to Spanish Translation
-translation_prompt = """Translate the following English text to Spanish without showing any examples: {question}"""
+# 3. Prompt for English to Spanish Translation (0-shot)
+translation_prompt = """Translate the following English text to Spanish: {question}"""
 
-# Using a prompt template
-template = """Classify the following statement as true or false:  {question}
+# 4. Prompt for True/False Classification (0-shot)
+true_false_prompt = """Classify the following statement as true or false: {question}
 
-Answer: Let's think step by step."""
+Answer:"""
 
-prompt = PromptTemplate(template=template, input_variables=["question"])
+prompt = PromptTemplate(template=true_false_prompt, input_variables=["question"])
 
 movie_review = PromptTemplate(template=movie_review_prompt, input_variables=["question"])
 climate_change = PromptTemplate(template=climate_change_prompt, input_variables=["question"])
